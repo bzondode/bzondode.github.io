@@ -1,84 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Executive Operational Analytics | Mobolaji Zondode</title>
-<link rel="stylesheet" href="style.css"><link rel="stylesheet" href="project1.css">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="project1.css">
 </head>
 <body>
-<header class="site-header"><div class="container nav-wrap"><a class="brand" href="index.html">MZ</a><nav class="nav"><a href="index.html">Home</a><a class="active" href="projects.html">Projects</a><a href="about.html">About</a><a href="https://github.com/bzondode" target="_blank">GitHub</a></nav></div></header>
+<header class="site-header"><div class="container nav-wrap"><a class="brand" href="index.html">MZ</a><nav class="nav"><a href="index.html">Home</a><a class="active" href="projects.html">Projects</a><a href="about.html">About</a><a href="https://github.com/bzondode" target="_blank" rel="noreferrer">GitHub</a></nav></div></header>
 <main>
 <section class="case-hero"><div class="container narrow">
 <p class="eyebrow">FLAGSHIP CASE STUDY</p>
 <h1>Executive Operational Analytics & Decision Support</h1>
-<p class="case-lead">A portfolio-safe reconstruction of a real-world analytics workflow: translating recurring operational questions into trusted KPIs, drill-down analysis, and concise executive decision support.</p>
+<p class="case-lead">A portfolio-safe Power BI case study that turns recurring operational questions into trusted KPIs, dynamic executive narratives, and geographic diagnostic analysis.</p>
 <div class="case-meta">
 <div><span>ROLE</span><strong>BI / Data Analyst</strong></div>
 <div><span>TOOLS</span><strong>Power BI · DAX · SQL · Python</strong></div>
 <div><span>FOCUS</span><strong>KPI Design · Data Modeling · Decision Support</strong></div>
 <div><span>DATA</span><strong>Synthetic portfolio dataset</strong></div>
 </div>
-<div class="notice"><strong>Portfolio-safe by design.</strong> The public dataset is synthetic and contains no employer, operational, personal, or confidential information. The methodology reflects a genuine analytical workflow.</div>
+<div class="notice"><strong>Portfolio-safe by design.</strong> The public dataset is synthetic and contains no employer, operational, personal, or confidential information. The analytical methods reflect a genuine real-world workflow.</div>
 </div></section>
 
 <section class="section"><div class="container narrow">
 <p class="eyebrow">THE BUSINESS PROBLEM</p>
 <h2>Leadership needed faster answers without losing analytical context.</h2>
-<p>Recurring reporting can show what happened during a single period while leaving decision makers to determine whether a change is unusual, where it is concentrated, and what is driving it.</p>
+<p>Recurring reporting can show what happened while still leaving decision makers to determine whether a change is unusual, where it is concentrated, and what is driving it. The project was designed to reduce that analytical friction.</p>
 <div class="question-grid">
 <div class="question"><strong>1</strong><span>What is happening now?</span></div>
 <div class="question"><strong>2</strong><span>How does it compare with prior periods?</span></div>
-<div class="question"><strong>3</strong><span>Where and what are the main drivers?</span></div>
-<div class="question"><strong>4</strong><span>What should leadership notice first?</span></div>
+<div class="question"><strong>3</strong><span>Where is activity concentrated?</span></div>
+<div class="question"><strong>4</strong><span>What is driving the pattern?</span></div>
 </div></div></section>
 
 <section class="section alt"><div class="container">
-<div class="section-heading"><p class="eyebrow">SOLUTION ARCHITECTURE</p><h2>Designed as an analytical system, not just a dashboard.</h2></div>
-<div class="flow">
-<div>Source Data<small>Operational records</small></div><b>→</b>
-<div>Preparation<small>SQL · Python · Validation</small></div><b>→</b>
-<div>Analytical Model<small>Facts · Dimensions · KPIs</small></div><b>→</b>
-<div>Power BI<small>Overview · Drill-down · Narrative</small></div><b>→</b>
-<div>Decision Support<small>Actionable context</small></div>
-</div></div></section>
+<div class="section-heading"><p class="eyebrow">THE SOLUTION</p><h2>Two pages, one analytical progression.</h2><p>The report moves from executive monitoring to geographic diagnosis while reusing the same governed measure layer and filter context.</p></div>
+<figure class="dashboard-shot">
+<a href="executive-overview.png" target="_blank"><img src="executive-overview.png" alt="Executive Operational Analytics Power BI overview page"></a>
+<figcaption><strong>Page 1 — Executive Operational Analytics.</strong> Recent-period KPIs, long-range daily trend, regional and category composition, and a dynamic executive summary.</figcaption>
+</figure>
+<div class="feature-grid">
+<article><h3>Executive monitoring</h3><p>Six headline measures summarize the latest 7 days, recent 28 days, and YTD performance with period-over-period context.</p></article>
+<article><h3>Interpretive narrative</h3><p>The Executive Summary synthesizes KPI direction and current Region/Category selections instead of simply repeating card values.</p></article>
+</div>
+</div></section>
 
-<section class="section"><div class="container narrow">
-<p class="eyebrow">ANALYTICAL DESIGN</p><h2>One measure layer, multiple levels of analysis.</h2>
-<div class="story-list">
-<article><h3>1. KPI layer</h3><p>Reusable measures provide recent-period totals, prior-period comparisons, year-over-year context, and YTD performance without duplicating business logic across visuals.</p></article>
-<article><h3>2. Diagnostic layer</h3><p>Category, region, subregion, and time dimensions let users move from the executive summary into the specific drivers behind a change.</p></article>
-<article><h3>3. Data-quality layer</h3><p>Preparation steps standardize values, validate relationships, isolate exceptions, and preserve clear business definitions before data reaches the reporting layer.</p></article>
-<article><h3>4. Interpretation layer</h3><p>Dynamic narrative logic converts changing filter context into concise text so the report surfaces the most important movements rather than requiring readers to interpret every visual independently.</p></article>
-</div></div></section>
+<section class="section"><div class="container">
+<div class="section-heading"><p class="eyebrow">GEOGRAPHIC & DIAGNOSTIC ANALYSIS</p><h2>Move from “where” to “what is driving it.”</h2><p>The second page adds hierarchy-aware geography measures, category ranking, a rolling 28-day view, and a diagnostic matrix that exposes the composition beneath regional totals.</p></div>
+<figure class="dashboard-shot">
+<a href="geographic-diagnostic.png" target="_blank"><img src="geographic-diagnostic.png" alt="Geographic and Diagnostic Analysis Power BI page"></a>
+<figcaption><strong>Page 2 — Geographic & Diagnostic Analysis.</strong> Region → Subregion hierarchy, geography share, category ranking, rolling 28-day trend, diagnostic narrative, and Category × Geography detail.</figcaption>
+</figure>
+<div class="feature-grid three">
+<article><h3>Where?</h3><p>Region and Subregion comparisons identify geographic concentration.</p></article>
+<article><h3>What?</h3><p>Category rankings show the dominant activity in the current context.</p></article>
+<article><h3>Why there?</h3><p>The matrix reveals which categories and subregions are contributing to the pattern.</p></article>
+</div>
+</div></section>
 
 <section class="section alt"><div class="container narrow">
-<p class="eyebrow">TECHNICAL APPROACH</p><h2>From raw records to decision-ready information.</h2>
-<pre class="code-card"><code>Source records
-  → clean and standardize
-  → validate business rules
-  → model facts and dimensions
-  → calculate reusable KPI measures
-  → expose drill-down paths
-  → generate executive narrative
-  → support action and follow-up</code></pre>
-<div class="tags large"><span>Power BI</span><span>DAX</span><span>SQL Server</span><span>Python</span><span>Pandas</span><span>Power Query</span><span>Dimensional Modeling</span><span>Data Validation</span></div>
+<p class="eyebrow">CONTEXT-AWARE ANALYTICS</p>
+<h2>The report changes its interpretation as the user changes context.</h2>
+<p>The narrative logic was validated across four principal states: All Regions / All Categories, selected Region / All Categories, All Regions / selected Category, and selected Region / selected Category.</p>
+<div class="context-grid">
+<div><span>ALL / ALL</span><p>Identify the leading Region and leading Category.</p></div>
+<div><span>REGION / ALL</span><p>Describe the selected Region and its leading Category.</p></div>
+<div><span>ALL / CATEGORY</span><p>Identify the Region with the highest volume for that Category.</p></div>
+<div><span>REGION / CATEGORY</span><p>Describe the selected combination directly without mislabeling a filtered value as an unrestricted leader.</p></div>
+</div>
+<blockquote class="insight-quote">“West recorded 52 events during the most recent 28 days, representing 24.8% of all Property events across regions. W3 recorded the highest subregional volume at 21 events. The analysis is filtered to Property.”</blockquote>
+</div></section>
+
+<section class="section"><div class="container">
+<div class="section-heading"><p class="eyebrow">ANALYTICAL MODEL</p><h2>Dimensional structure keeps the measures reusable.</h2></div>
+<div class="model-flow">
+<div><strong>FactEvents</strong><small>Operational event grain</small></div>
+<b>↔</b><div><strong>DimDate</strong><small>Period logic</small></div>
+<b>↔</b><div><strong>DimCategory</strong><small>Category context</small></div>
+<b>↔</b><div><strong>DimGeography</strong><small>Region → Subregion</small></div>
+</div>
+<p class="model-note">A dedicated Measures table centralizes KPI logic so the same definitions drive cards, charts, matrices, percentages, and dynamic narratives.</p>
+</div></section>
+
+<section class="section alt"><div class="container">
+<div class="section-heading"><p class="eyebrow">TECHNICAL HIGHLIGHTS</p><h2>Filter context is controlled deliberately.</h2></div>
+<div class="tech-grid">
+<article><span>FILTER STATE</span><h3>HASONEVALUE + SELECTEDVALUE</h3><p>Detect current Region and Category selections so narrative text can change appropriately.</p></article>
+<article><span>HIERARCHY</span><h3>ISINSCOPE</h3><p>Changes geography-share logic between Region and Subregion levels.</p></article>
+<article><span>DENOMINATORS</span><h3>REMOVEFILTERS</h3><p>Removes only the dimensions needed for comparison while preserving the rest of the analytical context.</p></article>
+<article><span>VIRTUAL TABLES</span><h3>ADDCOLUMNS + MAXX + FILTER</h3><p>Builds ranking tables, identifies maximum values, and preserves ties.</p></article>
+<article><span>DYNAMIC TEXT</span><h3>CONCATENATEX + SWITCH(TRUE)</h3><p>Constructs context-aware narratives and handles multiple analytical states.</p></article>
+<article><span>VISUAL LOGIC</span><h3>Measure-driven formatting</h3><p>Applies heat formatting only to Category × Subregion detail cells while keeping totals neutral.</p></article>
+</div>
 </div></section>
 
 <section class="section"><div class="container narrow">
-<p class="eyebrow">BUSINESS IMPACT</p><h2>The value is not the visual—it is the reduction in analytical friction.</h2>
-<p>This design brings recurring KPI logic, comparison periods, drill-down paths, and narrative interpretation into one governed reporting experience. The result is faster review, more consistent definitions, easier identification of exceptions, and a clearer path from executive overview to detailed investigation.</p>
+<p class="eyebrow">TIE-AWARE RANKING</p>
+<h2>Analytical edge cases are treated as real outcomes.</h2>
+<p>Rather than allowing a single-row ranking function to hide ties, virtual tables retain every geography or category matching the maximum value. The names are then combined dynamically.</p>
+<div class="callout-result"><span>VALIDATED EDGE CASE</span><strong>W1, W3 jointly recorded the highest subregional volume at 52 events each.</strong></div>
+</div></section>
+
+<section class="section alt"><div class="container narrow">
+<p class="eyebrow">DESIGN APPROACH</p><h2>Interpretation before detail.</h2>
+<div class="story-list">
+<article><h3>Filter Context → Interpretation → Evidence</h3><p>Both pages place the current analytical context and dynamic narrative before supporting visuals.</p></article>
+<article><h3>One visual, one question</h3><p>KPIs show performance, trends show time, rankings show concentration, and the matrix exposes composition. Additional visuals were avoided when they did not answer a new question.</p></article>
+<article><h3>Consistent measure definitions</h3><p>The same core measures are reused across visuals and narratives to reduce the risk of conflicting definitions.</p></article>
+</div>
+</div></section>
+
+<section class="section"><div class="container narrow">
+<p class="eyebrow">OUTCOME</p><h2>Monitoring → Interpretation → Diagnosis</h2>
+<p>The completed solution provides an executive view of recent performance and a diagnostic path into geography and category drivers. The project demonstrates Power BI development, dimensional modeling, DAX filter-context management, interaction design, analytical storytelling, and the translation of operational data into decision-oriented information.</p>
 </div></section>
 
 <section class="section alt"><div class="container narrow">
 <p class="eyebrow">PUBLIC DEMONSTRATION</p><h2>Reproduce the portfolio-safe data layer.</h2>
 <div class="download-grid">
-<a class="download-card" href="executive_analytics_sample.csv" download><strong>Synthetic Dataset</strong><span>CSV · 13,000+ synthetic analytical rows</span></a>
+<a class="download-card" href="executive_analytics_sample.csv" download><strong>Synthetic Dataset</strong><span>CSV · portfolio-safe analytical data</span></a>
 <a class="download-card" href="generate_executive_analytics_data.py" download><strong>Data Generator</strong><span>Python · reproducible synthetic data</span></a>
 </div>
-<p class="small-note">Next iteration: build the public Power BI demonstration from this dataset and add portfolio screenshots to this page.</p>
+<p class="small-note">The screenshots above were built from the synthetic public dataset and demonstrate the completed Power BI design.</p>
 </div></section>
 
 <section class="section cta-section"><div class="container cta"><div><p class="eyebrow">NEXT</p><h2>Explore the rest of the portfolio.</h2></div><div class="actions"><a class="btn primary" href="projects.html">All Projects</a><a class="btn secondary" href="mailto:mzondode@gmail.com">Contact Me</a></div></div></section>
 </main>
 <footer class="site-footer"><div class="container footer-wrap"><span>© 2026 Mobolaji Zondode</span><span>Business Intelligence · Data Analytics · Analytics Engineering</span></div></footer>
-</body></html>
+</body>
+</html>
