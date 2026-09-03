@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="SQL Server and SSRS reporting engineering case study by Mobolaji Zondode." />
+  <title>SQL &amp; SSRS Reporting Engineering | Mobolaji Zondode</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="project3.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="shell nav-wrap">
+      <a class="brand" href="index.html" aria-label="Home">MZ</a>
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="index.html">Home</a>
+        <a href="projects.html">Projects</a>
+        <a href="about.html">About</a>
+        <a href="https://github.com/bzondode" target="_blank" rel="noopener">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero shell">
+      <p class="eyebrow">CASE STUDY</p>
+      <h1>SQL &amp; SSRS Reporting Engineering</h1>
+      <p class="hero-copy">
+        A portfolio-safe reporting-engineering case study focused on grain control,
+        SQL Server performance tuning, validation, parameterization, and SSRS-ready delivery.
+      </p>
+
+      <div class="meta-grid">
+        <div><span>ROLE</span><strong>Data / BI Analyst</strong></div>
+        <div><span>TOOLS</span><strong>SQL Server · SSMS · SSRS</strong></div>
+        <div><span>FOCUS</span><strong>Query Architecture · Performance · Reporting</strong></div>
+        <div><span>DATA</span><strong>Synthetic Portfolio Dataset</strong></div>
+      </div>
+
+      <div class="safe-note">
+        Portfolio-safe by design. All records and benchmark data are synthetic.
+        The methods demonstrate a real reporting-engineering workflow without exposing operational or personal data.
+      </div>
+    </section>
+
+    <section class="section shell">
+      <p class="eyebrow">THE REPORTING PROBLEM</p>
+      <h2>One person could appear many times before the report even reached SSRS.</h2>
+      <p>
+        The source model contained several legitimate one-to-many relationships:
+        people could be linked to multiple cases, cases could contain multiple offenses,
+        and people could have multiple addresses. A straightforward join therefore expanded
+        below the required reporting grain.
+      </p>
+
+      <div class="equation-card">
+        <span>Person</span><b>×</b><span>Case</span><b>×</b><span>Offense</span><b>×</b><span>Address</span>
+      </div>
+
+      <div class="stats-grid">
+        <article>
+          <strong>5,340</strong>
+          <span>Baseline joined rows</span>
+        </article>
+        <article>
+          <strong>1,971</strong>
+          <span>Distinct qualifying people</span>
+        </article>
+        <article>
+          <strong>3,369</strong>
+          <span>Rows beyond person grain</span>
+        </article>
+        <article>
+          <strong>2.71</strong>
+          <span>Average rows per person</span>
+        </article>
+      </div>
+    </section>
+
+    <section class="section section-soft">
+      <div class="shell">
+        <p class="eyebrow">ENGINEERING APPROACH</p>
+        <h2>Correct grain first. Performance second. Presentation third.</h2>
+        <div class="flow">
+          <div>Filter qualifying cases and offenses</div>
+          <span>↓</span>
+          <div>Establish qualifying people</div>
+          <span>↓</span>
+          <div>Materialize Person × Case</div>
+          <span>↓</span>
+          <div>Materialize Person × Offense</div>
+          <span>↓</span>
+          <div>Aggregate histories</div>
+          <span>↓</span>
+          <div>Select one deterministic address</div>
+          <span>↓</span>
+          <div>Assemble one row per PersonID</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section shell">
+      <p class="eyebrow">PERFORMANCE ENGINEERING</p>
+      <h2>The first correct design still performed too much repeated work.</h2>
+      <p>
+        After grain was corrected, benchmarking exposed expensive repeated aggregation.
+        The redesigned version materialized reusable working sets and indexed them around the
+        repeated lookup key, <code>PersonID</code>. Targeted source-table indexes were then added only
+        where the access pattern justified them.
+      </p>
+
+      <div class="comparison-grid">
+        <article class="comparison-card">
+          <p class="mini-label">EARLIER DESIGN</p>
+          <h3>Correct output, expensive reuse</h3>
+          <p>Repeated XML/string aggregation revisited underlying joined logic many times.</p>
+        </article>
+        <article class="comparison-card">
+          <p class="mini-label">ENGINEERED DESIGN</p>
+          <h3>Materialized, indexed working sets</h3>
+          <p>Person-case and person-offense grains were stored once and reused predictably.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section section-dark">
+      <div class="shell">
+        <p class="eyebrow light">BENCHMARK RESULT</p>
+        <h2>Targeted indexing reduced combined source-table logical reads by 64.3%.</h2>
+
+        <div class="benchmark-table-wrap">
+          <table class="benchmark-table">
+            <thead>
+              <tr>
+                <th>Source table</th>
+                <th>Without project indexes</th>
+                <th>With project indexes</th>
+                <th>Reduction</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Cases</td><td>798</td><td>60</td><td>92.5%</td></tr>
+              <tr><td>Offenses</td><td>2,795</td><td>1,081</td><td>61.3%</td></tr>
+              <tr><td>Addresses</td><td>306</td><td>250</td><td>18.3%</td></tr>
+              <tr class="total"><td>Combined</td><td>3,899</td><td>1,391</td><td>64.3%</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section shell">
+      <p class="eyebrow">CORRECTNESS VALIDATION</p>
+      <h2>Performance improvements were accepted only after the business result reconciled.</h2>
+
+      <div class="stats-grid validation">
+        <article>
+          <strong>13,129</strong>
+          <span>Final rows</span>
+        </article>
+        <article>
+          <strong>13,129</strong>
+          <span>Distinct qualifying people</span>
+        </article>
+        <article>
+          <strong>0</strong>
+          <span>Duplicate PersonIDs</span>
+        </article>
+        <article>
+          <strong>0</strong>
+          <span>Population differences</span>
+        </article>
+      </div>
+
+      <div class="check-grid">
+        <div>✓ Date-filter boundaries reconciled</div>
+        <div>✓ Offense-group filters reconciled</div>
+        <div>✓ Multi-case history preserved</div>
+        <div>✓ Multi-offense history preserved</div>
+        <div>✓ Address selection validated</div>
+        <div>✓ Missing addresses preserved</div>
+        <div>✓ Case-history strings complete</div>
+        <div>✓ Offense-history strings complete</div>
+      </div>
+    </section>
+
+    <section class="section section-soft">
+      <div class="shell">
+        <p class="eyebrow">SSRS DELIVERY</p>
+        <h2>The reporting layer stays thin because the dataset is already report-ready.</h2>
+        <p>
+          The final SQL dataset remains one row per person and is parameterized for start date,
+          end date, and offense group. SSRS handles profile-card presentation, pagination, headers,
+          footers, and print/PDF delivery rather than repairing relational duplication.
+        </p>
+
+        <div class="report-card">
+          <div class="report-head">
+            <div>
+              <strong>Operational Person Profile Report</strong>
+              <small>Selected offense activity by person</small>
+            </div>
+            <span>Person ID: 4231</span>
+          </div>
+          <div class="report-meta">DOB: Sep 27, 1988 &nbsp;|&nbsp; Gender: X &nbsp;|&nbsp; Photo: Available</div>
+          <div class="report-line"><b>Address</b><span>1988 Oak Ct, Baltimore, MD 21224</span></div>
+          <div class="report-metrics">
+            <div><b>4</b><span>Qualifying Cases</span></div>
+            <div><b>Aug 12, 2026</b><span>Most Recent Case</span></div>
+            <div><b>Central, West</b><span>Regions</span></div>
+          </div>
+          <div class="report-line"><b>Offense Groups</b><span>Property, Violence</span></div>
+          <div class="report-line"><b>Offense Types</b><span>Assault, Burglary, Robbery, Theft</span></div>
+        </div>
+        <p class="mock-note">Illustrative synthetic report profile.</p>
+      </div>
+    </section>
+
+    <section class="section shell">
+      <p class="eyebrow">TECHNICAL HIGHLIGHTS</p>
+      <h2>The project connects reporting logic to SQL Server engine behavior.</h2>
+
+      <div class="technical-grid">
+        <article><span>GRAIN</span><h3>Explicit working-set grain</h3><p>Each intermediate table has a known level of detail before final assembly.</p></article>
+        <article><span>MATERIALIZATION</span><h3>Reusable temp-table structures</h3><p>Repeated access is redirected to smaller, purpose-built working sets.</p></article>
+        <article><span>INDEX DESIGN</span><h3>Access-pattern-driven keys</h3><p>Key order and included columns follow filtering, joins, ranking, and output needs.</p></article>
+        <article><span>MEASUREMENT</span><h3>Logical reads over anecdotes</h3><p>Repeatable page-access measurements provide stronger evidence than isolated elapsed times.</p></article>
+        <article><span>VALIDATION</span><h3>Independent reconciliation</h3><p>Performance changes are checked against source populations and business rules.</p></article>
+        <article><span>REPORTING</span><h3>Thin SSRS presentation layer</h3><p>SQL performs relational work; SSRS concentrates on delivery and usability.</p></article>
+      </div>
+    </section>
+
+    <section class="section section-outcome">
+      <div class="shell">
+        <p class="eyebrow">OUTCOME</p>
+        <h2>From relational duplication to a validated, performant reporting dataset.</h2>
+        <p>
+          The completed solution demonstrates SQL Server query architecture, grain and cardinality
+          management, materialization, indexing, benchmark-driven tuning, correctness validation,
+          parameterized SSRS delivery, and operational report design.
+        </p>
+        <blockquote>
+          Correct grain first. Measure second. Optimize deliberately. Validate again. Present last.
+        </blockquote>
+      </div>
+    </section>
+
+    <section class="section shell">
+      <p class="eyebrow">PROJECT DOCUMENTATION</p>
+      <h2>Review the engineering summary.</h2>
+      <div class="cta-row">
+        <a class="button primary" href="PROJECT_SUMMARY.md">Project Summary</a>
+        <a class="button secondary" href="projects.html">All Projects</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-wrap">
+      <span>© 2026 Mobolaji Zondode</span>
+      <span>Business Intelligence · Data Analytics · Analytics Engineering</span>
+    </div>
+  </footer>
+</body>
+</html>
