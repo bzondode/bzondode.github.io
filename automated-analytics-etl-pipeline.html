@@ -23,7 +23,19 @@
 <div class="p2-grid three"><article class="p2-card"><h3>Multi-value fields</h3><p>Multiple offenses could exist inside a single incident-level text field.</p></article><article class="p2-card"><h3>Unstructured signals</h3><p>Narratives contained useful analytical clues not available as structured columns.</p></article><article class="p2-card"><h3>Quality exceptions</h3><p>Some records required explicit overrides instead of hidden hard-coded corrections.</p></article></div></div></section>
 
 <section class="section alt"><div class="container"><p class="eyebrow">PIPELINE ARCHITECTURE</p><h2>From imperfect source data to BI-ready facts.</h2>
-<div class="p2-flow"><div>01 · Generate Synthetic Source</div><span>↓</span><div>02 · Extract &amp; Standardize</div><span>↓</span><div>03 · Normalize Offenses</div><span>↓</span><div>04 · Apply Quality Overrides</div><span>↓</span><div>05 · Narrative Enrichment</div><span>↓</span><div>06 · Build FactIncident</div><span>↓</span><div>07 · Build FactProperty</div><span>↓</span><div>08 · Publish Outputs</div><span>↓</span><div>09 · Independent Validation</div><span>↓</span><div>10 · BI Readiness Check</div><span>↓</span><div>11 · One-Click Orchestration</div></div></div></section>
+<div class="p2-flow">
+<div>01 · Generate Synthetic Source</div><span>↓</span>
+<div>02 · Extract &amp; Standardize</div><span>↓</span>
+<div>03 · Build FactOffense (Pre-Override)</div><span>↓</span>
+<div>04 · Finalize FactOffense with Quality Overrides</div><span>↓</span>
+<div>05 · Narrative Enrichment</div><span>↓</span>
+<div>06 · Build FactIncident</div><span>↓</span>
+<div>07 · Build FactProperty</div><span>↓</span>
+<div>08 · Publish Outputs</div><span>↓</span>
+<div>09 · Independent Validation</div><span>↓</span>
+<div>10 · BI Readiness Check</div><span>↓</span>
+<div>11 · One-Click Orchestration</div>
+</div></div></section>
 
 <section class="section"><div class="container"><p class="eyebrow">GRAIN DESIGN</p><h2>Different facts preserve different analytical relationships.</h2>
 <div class="p2-stats"><article><strong>12,000</strong><span>FactIncident rows</span><small>One row per CaseNo</small></article><article><strong>17,389</strong><span>FactOffense rows</span><small>CaseNo × OffenseType</small></article><article><strong>12,948</strong><span>FactProperty rows</span><small>CaseNo × PropertyType</small></article></div>
@@ -60,7 +72,7 @@
 
 <section class="section"><div class="container"><p class="eyebrow">OUTCOME</p><h2>A reproducible, auditable, grain-aware analytical pipeline.</h2><p class="p2-copy">The project demonstrates that ETL quality is not just about moving data between files. It is about controlling how meaning, grain, exceptions, validation, and trust move through the pipeline.</p>
 <blockquote class="p2-quote">Automation should make a process more reliable, not merely faster.</blockquote>
-<div class="actions p2-actions"><a class="btn primary" href="PROJECT2_SUMMARY.md">Project Summary</a><a class="btn secondary" href="projects.html">All Projects</a></div></div></section>
+<div class="actions p2-actions"><a class="btn primary" href="project2-summary.html">Project Summary</a><a class="btn secondary" href="projects.html">All Projects</a></div></div></section>
 </main>
 <footer class="site-footer"><div class="container footer-wrap"><span>© 2026 Mobolaji Zondode</span><span>Business Intelligence · Data Analytics · Analytics Engineering</span></div></footer>
 </body></html>

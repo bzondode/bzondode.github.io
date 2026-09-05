@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta name="description" content="Project 02 summary — Automated Analytics ETL & Data Quality Pipeline by Mobolaji Zondode.">
+  <title>Project 02 Summary | Mobolaji Zondode</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="project2.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="container nav-wrap">
+    <a class="brand" href="index.html">MZ</a>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="projects.html">Projects</a>
+      <a href="about.html">About</a>
+      <a href="https://github.com/bzondode" target="_blank">GitHub</a>
+    </nav>
+  </div>
+</header>
+<main>
+<section class="p2-hero"><div class="container">
+  <p class="eyebrow">PROJECT 02 · SUMMARY</p>
+  <h1>Automated Analytics ETL &amp; Data Quality Pipeline</h1>
+  <p class="p2-lead">A concise technical summary of the pipeline architecture, grain design, validation controls, and BI-readiness results.</p>
+</div></section>
+
+<section class="section"><div class="container">
+  <p class="eyebrow">OVERVIEW</p>
+  <h2>From messy operational-style source data to validated analytical facts.</h2>
+  <p class="p2-copy">This portfolio-safe project uses fully synthetic data to demonstrate a real analytics-engineering workflow: standardization, offense normalization, explicit quality overrides, narrative enrichment, fact construction, publishing, independent validation, and BI readiness.</p>
+</div></section>
+
+<section class="section alt"><div class="container">
+  <p class="eyebrow">FINAL MODEL</p>
+  <div class="p2-stats">
+    <article><strong>12,000</strong><span>FactIncident</span><small>One row per CaseNo</small></article>
+    <article><strong>17,389</strong><span>FactOffense</span><small>CaseNo × OffenseType</small></article>
+    <article><strong>12,948</strong><span>FactProperty</span><small>CaseNo × PropertyType</small></article>
+  </div>
+</div></section>
+
+<section class="section"><div class="container">
+  <p class="eyebrow">QUALITY CONTROLS</p>
+  <h2>Exceptions are surfaced instead of silently discarded.</h2>
+  <div class="p2-grid three">
+    <article class="p2-card"><h3>Overrides</h3><p>205 unresolved incidents were resolved through an explicit override table. All 205 were accepted; 0 remained unresolved.</p></article>
+    <article class="p2-card"><h3>Validation</h3><p>25 independent checks passed with 0 failures across grains, relationships, dates, counts, manifests, and hashes.</p></article>
+    <article class="p2-card"><h3>Readiness</h3><p>Overall status READY with 19 PASS checks, 2 warnings, and 0 failures.</p></article>
+  </div>
+</div></section>
+
+<section class="section alt"><div class="container">
+  <p class="eyebrow">ONE-CLICK ORCHESTRATION</p>
+  <h2>10/10 stages completed successfully.</h2>
+  <p class="p2-copy">The end-to-end runner executes the workflow in order, stops on failure, records stage timing and return codes, and enforces final validation and BI-readiness gates.</p>
+</div></section>
+
+<section class="section"><div class="container">
+  <blockquote class="p2-quote">ETL quality is not just about moving data between files. It is about controlling how meaning, grain, exceptions, validation, and trust move through the pipeline.</blockquote>
+  <div class="actions p2-actions">
+    <a class="btn primary" href="automated-analytics-etl-pipeline.html">Back to Case Study</a>
+    <a class="btn secondary" href="projects.html">All Projects</a>
+  </div>
+</div></section>
+</main>
+<footer class="site-footer"><div class="container footer-wrap"><span>© 2026 Mobolaji Zondode</span><span>Business Intelligence · Data Analytics · Analytics Engineering</span></div></footer>
+</body>
+</html>
