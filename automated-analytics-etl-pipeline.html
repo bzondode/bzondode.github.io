@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta name="description" content="Automated Analytics ETL & Data Quality Pipeline case study by Mobolaji Zondode.">
+  <title>Automated Analytics ETL & Data Quality Pipeline | Mobolaji Zondode</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="project2.css">
+</head>
+<body>
+<header class="site-header"><div class="container nav-wrap"><a class="brand" href="index.html">MZ</a><nav class="nav"><a href="index.html">Home</a><a href="projects.html">Projects</a><a href="about.html">About</a><a href="https://github.com/bzondode" target="_blank">GitHub</a></nav></div></header>
+<main>
+<section class="p2-hero"><div class="container">
+<p class="eyebrow">CASE STUDY · PROJECT 02</p>
+<h1>Automated Analytics ETL &amp; Data Quality Pipeline</h1>
+<p class="p2-lead">A reproducible Python analytics-engineering workflow that transforms messy operational-style source data into validated, BI-ready analytical fact tables.</p>
+<div class="p2-meta"><div><span>ROLE</span><strong>Data / BI Analyst</strong></div><div><span>TOOLS</span><strong>Python · Pandas · SQLite</strong></div><div><span>FOCUS</span><strong>ETL · Data Quality · Validation</strong></div><div><span>DATA</span><strong>Fully Synthetic</strong></div></div>
+<div class="p2-note">This public case study is based on real ETL work completed previously, recreated with synthetic data so the engineering approach can be demonstrated safely.</div>
+</div></section>
+
+<section class="section"><div class="container"><p class="eyebrow">THE PROBLEM</p><h2>Operational data is rarely analysis-ready.</h2><p class="p2-copy">The source included multi-value offense text, inconsistent delimiters and casing, blank analyst fields, wide Boolean flags, free-text narratives, missing geography, non-standard identifiers, and records requiring explicit analyst intervention.</p>
+<div class="p2-grid three"><article class="p2-card"><h3>Multi-value fields</h3><p>Multiple offenses could exist inside a single incident-level text field.</p></article><article class="p2-card"><h3>Unstructured signals</h3><p>Narratives contained useful analytical clues not available as structured columns.</p></article><article class="p2-card"><h3>Quality exceptions</h3><p>Some records required explicit overrides instead of hidden hard-coded corrections.</p></article></div></div></section>
+
+<section class="section alt"><div class="container"><p class="eyebrow">PIPELINE ARCHITECTURE</p><h2>From imperfect source data to BI-ready facts.</h2>
+<div class="p2-flow"><div>01 · Generate Synthetic Source</div><span>↓</span><div>02 · Extract &amp; Standardize</div><span>↓</span><div>03 · Normalize Offenses</div><span>↓</span><div>04 · Apply Quality Overrides</div><span>↓</span><div>05 · Narrative Enrichment</div><span>↓</span><div>06 · Build FactIncident</div><span>↓</span><div>07 · Build FactProperty</div><span>↓</span><div>08 · Publish Outputs</div><span>↓</span><div>09 · Independent Validation</div><span>↓</span><div>10 · BI Readiness Check</div><span>↓</span><div>11 · One-Click Orchestration</div></div></div></section>
+
+<section class="section"><div class="container"><p class="eyebrow">GRAIN DESIGN</p><h2>Different facts preserve different analytical relationships.</h2>
+<div class="p2-stats"><article><strong>12,000</strong><span>FactIncident rows</span><small>One row per CaseNo</small></article><article><strong>17,389</strong><span>FactOffense rows</span><small>CaseNo × OffenseType</small></article><article><strong>12,948</strong><span>FactProperty rows</span><small>CaseNo × PropertyType</small></article></div>
+<div class="p2-model"><pre>FactIncident
+    CaseNo
+      │
+      ├──&lt; FactOffense
+      │      CaseNo + OffenseType
+      │
+      └──&lt; FactProperty
+             CaseNo + PropertyType</pre></div></div></section>
+
+<section class="section alt"><div class="container"><p class="eyebrow">OFFENSE NORMALIZATION</p><h2>One incident can legitimately become multiple offense rows.</h2><p class="p2-copy">Analyst-curated offense values are preferred when valid, source offense text is used as fallback, mixed delimiters are normalized, labels are mapped to controlled categories, provenance is recorded, and source-versus-analyst mismatches are surfaced.</p>
+<div class="p2-stats four"><article><strong>17,184</strong><span>Pre-override offense rows</span></article><article><strong>205</strong><span>Unresolved incidents</span></article><article><strong>233</strong><span>Source/analyst mismatches</span></article><article><strong>0</strong><span>Duplicate offense pairs</span></article></div></div></section>
+
+<section class="section"><div class="container"><p class="eyebrow">EXPLICIT QUALITY OVERRIDES</p><h2>Manual corrections are treated as data, not invisible code.</h2><p class="p2-copy">Records unresolved by normal logic were handled through a separate override table. Each override had to reference a valid incident, use a canonical offense value, and preserve the final CaseNo × OffenseType grain.</p>
+<div class="p2-stats"><article><strong>205</strong><span>Overrides supplied</span></article><article><strong>205</strong><span>Overrides accepted</span></article><article><strong>0</strong><span>Unresolved after override</span></article></div></div></section>
+
+<section class="section alt"><div class="container"><p class="eyebrow">NARRATIVE ENRICHMENT</p><h2>Free text becomes structured analytical features.</h2><p class="p2-copy">Deterministic rule-based matching converts selected narrative clues into structured fields while preserving the original narrative.</p>
+<div class="p2-grid two"><article class="p2-card"><h3>Derived fields</h3><p>ForcedEntryFlag, NoForceFlag, SmashAndGrabFlag, UnknownEntryMethodFlag, MethodOfEntry, and NarrativeRuleConflict.</p></article><article class="p2-card"><h3>Observed enrichment</h3><p>351 smash-and-grab, 338 forced-entry, 374 no-force, 379 unknown, and 0 rule conflicts.</p></article></div></div></section>
+
+<section class="section p2-dark"><div class="container"><p class="eyebrow p2-light">INDEPENDENT VALIDATION</p><h2>25 checks. 25 passes. 0 failures.</h2>
+<div class="p2-stats dark-stats"><article><strong>25</strong><span>Validation checks</span></article><article><strong>25</strong><span>PASS</span></article><article><strong>0</strong><span>FAIL</span></article></div>
+<p class="p2-copy light-copy">Validation was performed after publishing, independently of the transformation logic. Checks covered grains, duplicate keys, referential integrity, offense reconciliation, date validity, SQLite row counts, manifest counts, and SHA-256 hashes.</p></div></section>
+
+<section class="section"><div class="container"><p class="eyebrow">BI READINESS</p><h2>Ready for downstream reporting—with known exceptions surfaced.</h2>
+<div class="p2-stats"><article><strong>READY</strong><span>Overall status</span></article><article><strong>19</strong><span>PASS checks</span></article><article><strong>2</strong><span>WARN checks</span></article></div>
+<div class="p2-warning"><strong>Expected warnings</strong><span>233 blank Region values · 127 non-standard CaseNo values</span></div>
+<p class="p2-copy">These warnings did not break grain or referential integrity, so the records remained available for analysis rather than being silently discarded.</p></div></section>
+
+<section class="section alt"><div class="container"><p class="eyebrow">ONE-CLICK PIPELINE</p><h2>The entire workflow reproduces itself through one orchestrated run.</h2>
+<div class="p2-stats four"><article><strong>10/10</strong><span>Stages completed</span></article><article><strong>PASS</strong><span>Validation gate</span></article><article><strong>READY</strong><span>BI readiness gate</span></article><article><strong>52.970s</strong><span>Observed full run</span></article></div>
+<p class="p2-copy">The orchestration layer stops on failure, captures return codes and stage timings, writes a run log, and requires both validation and BI readiness gates to succeed.</p></div></section>
+
+<section class="section"><div class="container"><p class="eyebrow">OUTCOME</p><h2>A reproducible, auditable, grain-aware analytical pipeline.</h2><p class="p2-copy">The project demonstrates that ETL quality is not just about moving data between files. It is about controlling how meaning, grain, exceptions, validation, and trust move through the pipeline.</p>
+<blockquote class="p2-quote">Automation should make a process more reliable, not merely faster.</blockquote>
+<div class="actions p2-actions"><a class="btn primary" href="PROJECT2_SUMMARY.md">Project Summary</a><a class="btn secondary" href="projects.html">All Projects</a></div></div></section>
+</main>
+<footer class="site-footer"><div class="container footer-wrap"><span>© 2026 Mobolaji Zondode</span><span>Business Intelligence · Data Analytics · Analytics Engineering</span></div></footer>
+</body></html>
