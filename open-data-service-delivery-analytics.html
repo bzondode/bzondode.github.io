@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+    name="description"
+    content="Open Data Service Delivery Analytics — Baltimore 311 demand, resolution, backlog, geographic performance, and data-quality case study by Mobolaji Zondode."
+  />
+  <title>Open Data Service Delivery Analytics | Mobolaji Zondode</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="project4.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container nav-wrap">
+    <a class="brand" href="index.html" aria-label="Home">MZ</a>
+    <nav class="nav" aria-label="Primary navigation">
+      <a href="index.html">Home</a>
+      <a href="projects.html">Projects</a>
+      <a href="about.html">About</a>
+      <a href="https://github.com/bzondode" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="p4-hero">
+    <div class="container">
+      <p class="eyebrow">CASE STUDY · PROJECT 04</p>
+      <h1>Open Data Service Delivery Analytics</h1>
+      <p class="p4-subtitle">Baltimore 311 Demand, Resolution &amp; Geographic Performance</p>
+      <p class="p4-lead">
+        An end-to-end public-sector analytics project that turns a live municipal 311 API into a
+        validated, BI-ready analytical model and four-page Power BI report covering service demand,
+        unresolved workload, resolution behavior, and geographic concentration.
+      </p>
+
+      <div class="p4-meta">
+        <div><span>ROLE</span><strong>Data / BI Analyst</strong></div>
+        <div><span>TOOLS</span><strong>Python · ArcGIS REST API · SQLite · Power BI · DAX</strong></div>
+        <div><span>FOCUS</span><strong>API Ingestion · ETL · QA · Dimensional Modeling · Geospatial BI</strong></div>
+        <div><span>DATA</span><strong>Baltimore City Public 311 Open Data</strong></div>
+      </div>
+
+      <div class="p4-note">
+        Public-data project. The analysis uses Baltimore City 311 service-request data from the public
+        ArcGIS REST API. Missing or ambiguous source behavior is surfaced rather than silently corrected.
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">THE ANALYTICAL PROBLEM</p>
+      <h2>A large public dataset is not automatically a trustworthy analytical product.</h2>
+      <p class="p4-copy">
+        The source contained hundreds of thousands of live service-request records, multiple identifiers,
+        incomplete geography, status variations, date anomalies, and an API record limit that required
+        deliberate pagination. Before building any dashboard, the source had to be profiled, extracted
+        safely, standardized, reconciled, and modeled at a proven analytical grain.
+      </p>
+
+      <div class="p4-grid three">
+        <article class="p4-card">
+          <h3>Live API scale</h3>
+          <p>824,401 requests were processed from a public ArcGIS FeatureServer snapshot.</p>
+        </article>
+        <article class="p4-card">
+          <h3>Source ambiguity</h3>
+          <p>Date behavior and incomplete geography required explicit analytical rules rather than assumptions.</p>
+        </article>
+        <article class="p4-card">
+          <h3>Trust before visualization</h3>
+          <p>The Power BI model was built only after row grain, key uniqueness, and published outputs were validated.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="container">
+      <p class="eyebrow">PIPELINE ARCHITECTURE</p>
+      <h2>Profile first. Model second.</h2>
+
+      <div class="p4-flow">
+        <div>01 · Profile Source API</div><span>↓</span>
+        <div>02 · Safe Paginated Extraction</div><span>↓</span>
+        <div>03 · Standardize Requests</div><span>↓</span>
+        <div>04 · Validate Request Grain</div><span>↓</span>
+        <div>05 · Build Service Request Fact</div><span>↓</span>
+        <div>06 · Build Dimensions</div><span>↓</span>
+        <div>06b · Attach Dimension Keys</div><span>↓</span>
+        <div>07 · Investigate Date Semantics</div><span>↓</span>
+        <div>08 · Build Resolution &amp; Aging Metrics</div><span>↓</span>
+        <div>09 · Geographic Quality Check</div><span>↓</span>
+        <div>10 · Publish Analytics Layer</div><span>↓</span>
+        <div>11 · Independently Validate Published Outputs</div><span>↓</span>
+        <div>12 · Build Analysis Summary</div><span>↓</span>
+        <div>13 · Orchestrate Full Pipeline</div>
+      </div>
+
+      <blockquote class="p4-quote">
+        The source gets a vote in the analytical design.
+      </blockquote>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">PROVEN ANALYTICAL GRAIN</p>
+      <h2>One row per logical 311 service request.</h2>
+      <p class="p4-copy">
+        Three candidate identifiers — <code>RowID</code>, <code>SRRecordID</code>, and
+        <code>ServiceRequestNum</code> — were validated across the full population. Each was complete,
+        unique, and mapped one-to-one with the others.
+      </p>
+
+      <div class="p4-stats four">
+        <article><strong>824,401</strong><span>Fact rows</span></article>
+        <article><strong>824,401</strong><span>Distinct RowID</span></article>
+        <article><strong>824,401</strong><span>Distinct SRRecordID</span></article>
+        <article><strong>824,401</strong><span>Distinct ServiceRequestNum</span></article>
+      </div>
+
+      <div class="p4-model">
+<pre>DimDate                     1 ──── * FactServiceRequest
+DimServiceType              1 ──── * FactServiceRequest
+DimAgency                   1 ──── * FactServiceRequest
+DimMethodReceived           1 ──── * FactServiceRequest
+DimNeighborhood             1 ──── * FactServiceRequest
+DimCouncilDistrict          1 ──── * FactServiceRequest</pre>
+      </div>
+    </div>
+  </section>
+
+  <section class="section p4-dark">
+    <div class="container">
+      <p class="eyebrow p4-light">INDEPENDENT VALIDATION</p>
+      <h2>39 checks. 39 passes. 0 failures.</h2>
+
+      <div class="p4-stats dark-stats">
+        <article><strong>39</strong><span>Validation checks</span></article>
+        <article><strong>39</strong><span>PASS</span></article>
+        <article><strong>0</strong><span>FAIL</span></article>
+      </div>
+
+      <p class="p4-copy light-copy">
+        Published CSV and SQLite outputs were reopened independently of the transformation path.
+        Validation covered fact row counts, key uniqueness, dimension reconciliation, manifest counts,
+        SHA-256 hashes, metric populations, and the intentional exclusion of unsupported DueDate-based SLA metrics.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">ANALYTICAL RULES</p>
+      <h2>Metrics were designed conservatively around what the source could actually support.</h2>
+
+      <div class="p4-grid two">
+        <article class="p4-card">
+          <span class="p4-kicker">RESOLUTION</span>
+          <h3>Valid closed-request intervals only</h3>
+          <p>
+            Resolution KPIs use closed-like requests with populated dates and a nonnegative
+            <code>CloseDate - CreatedDate</code> interval.
+          </p>
+        </article>
+
+        <article class="p4-card">
+          <span class="p4-kicker">AGING</span>
+          <h3>Snapshot-based active-request aging</h3>
+          <p>
+            Active backlog age is calculated as of the dataset snapshot date rather than the user's current system date.
+          </p>
+        </article>
+
+        <article class="p4-card">
+          <span class="p4-kicker">GEOGRAPHY</span>
+          <h3>Unknown locations remain visible</h3>
+          <p>
+            Missing geography is preserved in the model and excluded only from rankings that require a real geographic category.
+          </p>
+        </article>
+
+        <article class="p4-card">
+          <span class="p4-kicker">SLA</span>
+          <h3>DueDate metrics intentionally withheld</h3>
+          <p>
+            240,645 records had <code>DueDate &lt; CreatedDate</code>. Without defensible source semantics,
+            on-time/SLA measures were not published.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="container">
+      <p class="eyebrow">DATA QUALITY</p>
+      <h2>Known limitations were quantified instead of hidden.</h2>
+
+      <div class="p4-stats four">
+        <article><strong>75.0%</strong><span>Requests with valid coordinates</span></article>
+        <article><strong>73.4%</strong><span>Requests with known neighborhoods</span></article>
+        <article><strong>10,043</strong><span>Resolution date issues excluded</span></article>
+        <article><strong>777,118</strong><span>Resolution-eligible requests</span></article>
+      </div>
+
+      <div class="p4-warning">
+        <strong>Analytical restraint</strong>
+        <span>
+          A potentially attractive SLA metric was deliberately omitted after source profiling showed that
+          DueDate behavior could not be interpreted reliably enough for defensible reporting.
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">POWER BI REPORT</p>
+      <h2>Four pages answer four different operational questions.</h2>
+
+      <div class="p4-dashboard-grid">
+        <article class="p4-shot">
+          <img src="project4-overview.png" alt="Baltimore 311 Service Delivery Overview Power BI page" />
+          <div>
+            <span>PAGE 1</span>
+            <h3>Service Delivery Overview</h3>
+            <p>Overall request volume, status, demand drivers, aging, resolution, and neighborhood distribution.</p>
+          </div>
+        </article>
+
+        <article class="p4-shot">
+          <img src="project4-backlog.png" alt="Baltimore 311 Backlog Diagnostics Power BI page" />
+          <div>
+            <span>PAGE 2</span>
+            <h3>Backlog Diagnostics</h3>
+            <p>Unresolved workload, age composition, 90+ day service drivers, creation cohorts, and neighborhood concentration.</p>
+          </div>
+        </article>
+
+        <article class="p4-shot">
+          <img src="project4-geographic.png" alt="Baltimore 311 Geographic Performance Power BI page" />
+          <div>
+            <span>PAGE 3</span>
+            <h3>Geographic Performance</h3>
+            <p>Neighborhood demand, request density, mapped coverage, and council-district comparisons.</p>
+          </div>
+        </article>
+
+        <article class="p4-shot">
+          <img src="project4-methodology.png" alt="Baltimore 311 Methodology and Data Quality Power BI page" />
+          <div>
+            <span>PAGE 4</span>
+            <h3>Methodology &amp; Data Quality</h3>
+            <p>Pipeline architecture, analytical rules, geographic coverage, validation, and disclosed limitations.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="container">
+      <p class="eyebrow">SELECTED FINDINGS</p>
+      <h2>The model supports both executive monitoring and deeper backlog investigation.</h2>
+
+      <div class="p4-stats four">
+        <article><strong>36,988</strong><span>Active-like requests</span></article>
+        <article><strong>11,215</strong><span>Active requests older than 90 days</span></article>
+        <article><strong>37 days</strong><span>Median active-request age</span></article>
+        <article><strong>0.0284 days</strong><span>Median eligible resolution time</span></article>
+      </div>
+
+      <div class="p4-grid two findings">
+        <article class="p4-card">
+          <h3>High-volume demand</h3>
+          <p>
+            ECC-Information Request was the highest-volume service type with 203,835 requests,
+            but only 9 were active-like in the analytical snapshot.
+          </p>
+        </article>
+        <article class="p4-card">
+          <h3>Operational workload</h3>
+          <p>
+            Solid Waste was the highest-volume agency with 271,903 requests and 7,431 active-like requests,
+            making it materially relevant to backlog analysis.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">TECHNICAL HIGHLIGHTS</p>
+      <h2>The project extends beyond dashboarding into analytics engineering.</h2>
+
+      <div class="p4-grid three">
+        <article class="p4-card">
+          <span class="p4-kicker">API INGESTION</span>
+          <h3>Safe pagination</h3>
+          <p>Extraction reconciles API counts and uses lock/temp-file controls to prevent silent corruption.</p>
+        </article>
+        <article class="p4-card">
+          <span class="p4-kicker">GRAIN</span>
+          <h3>Population-level proof</h3>
+          <p>Three independent request identifiers were validated as unique, complete, and one-to-one.</p>
+        </article>
+        <article class="p4-card">
+          <span class="p4-kicker">MODEL</span>
+          <h3>Keyed star schema</h3>
+          <p>Dimension surrogate keys create clean one-to-many relationships for Power BI.</p>
+        </article>
+        <article class="p4-card">
+          <span class="p4-kicker">METRICS</span>
+          <h3>Eligibility-aware measures</h3>
+          <p>Resolution and backlog measures follow explicit source-quality rules instead of blanket calculations.</p>
+        </article>
+        <article class="p4-card">
+          <span class="p4-kicker">GEOSPATIAL</span>
+          <h3>Coverage-aware mapping</h3>
+          <p>Mapped and unmapped populations are disclosed so spatial visuals are interpreted in context.</p>
+        </article>
+        <article class="p4-card">
+          <span class="p4-kicker">VALIDATION</span>
+          <h3>Independent publication checks</h3>
+          <p>Published outputs are reopened and verified rather than assumed correct because the pipeline finished.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section p4-outcome">
+    <div class="container">
+      <p class="eyebrow">OUTCOME</p>
+      <h2>A reproducible public-data analytics product built around trust, not just visuals.</h2>
+      <p class="p4-copy">
+        Project 04 demonstrates public API ingestion, pipeline safety, data-quality investigation,
+        dimensional modeling, conservative metric design, geospatial analysis, independent validation,
+        orchestration, and executive Power BI reporting in one portfolio project.
+      </p>
+
+      <blockquote class="p4-quote">
+        Profile first. Model second. Validate before presenting.
+      </blockquote>
+
+      <div class="actions p4-actions">
+        <a class="btn primary" href="projects.html">All Projects</a>
+        <a class="btn secondary" href="https://github.com/bzondode" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-wrap">
+    <span>© 2026 Mobolaji Zondode</span>
+    <span>Business Intelligence · Data Analytics · Analytics Engineering</span>
+  </div>
+</footer>
+
+</body>
+</html>
